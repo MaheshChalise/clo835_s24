@@ -46,10 +46,24 @@ To start the server, run:
 python app.py
 ```
 
+Created Docker image named Project1
+docker build -t  project1 .
+
+Tag the created image to the respected repository
+docker tag project1 maheshchalise/project1:latest
+
+push it to the repository
+docker push maheshchalise/project1:latest
+
 Ensure your MongoDB instance is running and accessible as configured in your Python script.
 ```bash
-docker run --name mongodb-container -d -p 27017:27017 -v my_mongo_data:/data/db mongo:latest
+docker run --name mongodb -d -p 27017:27017 -v my_mongo_data:/data/db mongo:latest
 ```
+created network named nw1
+docker network create nw1  
+
+runs a detached container named pythonapp on network nw1, mapping port 3000, using the image maheshchalise/project1:latest
+docker run -d -p 3000:3000 --network nw1 --name pythonapp maheshchalise/project1:latest
 
 
 ## Using the Application
@@ -59,7 +73,7 @@ To interact with the application, you can use the following `curl` command to cr
 ```bash
 curl -X POST http://localhost:3000/items \
      -H "Content-Type: application/json" \
-     -d '{"id": "4", "name": "maziar"}'
+     -d '{"id": "4", "name": "mahesh"}'
 ```
 
 ## Contributing to the Project
